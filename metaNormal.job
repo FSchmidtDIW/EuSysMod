@@ -9,16 +9,47 @@
 #$ -m bae
 #$ -M lgo@wip.tu-berlin.de
 
-<<<<<<< HEAD
-qsub -t 1001 -v hours='8760' -v hours_heu='1752' -v nuC='1875' -v nuY='40' start8_64.job
-#qsub -t 1002 -v hours='8760' -v hours_heu='1752' -v nuC='2000' -v nuY='40' start8_64.job
-#qsub -t 1003 -v hours='8760' -v hours_heu='1752' -v nuC='2250' -v nuY='40' start8_64.job
-#qsub -t 1004 -v hours='8760' -v hours_heu='1752' -v nuC='2500' -v nuY='40' start8_64.job
 
-=======
-qsub -t 2001 -v hours='8760' -v hours_heu='1752' -v grid='_gridExp' start8_64.job
-qsub -t 2002 -v hours='8760' -v hours_heu='1752' -v grid='_noGridExp' start8_64.job
->>>>>>> 98ce0c599e3d910e891f14494065154c634ced35
+#qsub -t 101 -v h='8760' -v res='varied' -v cyc='allYearly' start4_64.job
+#qsub -t 102 -v h='4392' -v res='varied' -v cyc='allYearly' start4_64.job
+#qsub -t 103 -v h='1752' -v res='varied' -v cyc='allYearly' start4_64.job
+
+qsub -t 104 -v h='8760' -v res='full' -v cyc='allYearly' start4_64.job
+qsub -t 105 -v h='4392' -v res='full' -v cyc='allYearly' start4_64.job
+qsub -t 106 -v h='1752' -v res='full' -v cyc='allYearly' start4_64.job
+
+#qsub -t 107 -v h='8760' -v res='varied' -v cyc='allMonthly' start4_64.job
+#qsub -t 108 -v h='4392' -v res='varied' -v cyc='allMonthly' start4_64.job
+#qsub -t 109 -v h='1752' -v res='varied' -v cyc='allMonthly' start4_64.job
+
+qsub -t 110 -v h='8760' -v res='full' -v cyc='allMonthly' start4_64.job
+qsub -t 111 -v h='4392' -v res='full' -v cyc='allMonthly' start4_64.job
+qsub -t 112 -v h='1752' -v res='full' -v cyc='allMonthly' start4_64.job
+
+#qsub -t 113 -v h='8760' -v res='varied' -v cyc='seasonYearlyRestMontly' start4_64.job
+#qsub -t 114 -v h='4392' -v res='varied' -v cyc='seasonYearlyRestMontly' start4_64.job
+#qsub -t 115 -v h='1752' -v res='varied' -v cyc='seasonYearlyRestMontly' start4_64.job
+
+qsub -t 116 -v h='8760' -v res='full' -v cyc='seasonYearlyRestMontly' start4_64.job
+qsub -t 117 -v h='4392' -v res='full' -v cyc='seasonYearlyRestMontly' start4_64.job
+qsub -t 118 -v h='1752' -v res='full' -v cyc='seasonYearlyRestMontly' start4_64.job
+
+#qsub -t 119 -v h='8760' -v res='varied' -v cyc='seasonYearlyRestWeekly' start4_64.job
+#qsub -t 120 -v h='4392' -v res='varied' -v cyc='seasonYearlyRestWeekly' start4_64.job
+#qsub -t 121 -v h='1752' -v res='varied' -v cyc='seasonYearlyRestWeekly' start4_64.job
+
+qsub -t 122 -v h='8760' -v res='full' -v cyc='seasonYearlyRestWeekly' start4_64.job
+qsub -t 123 -v h='4392' -v res='full' -v cyc='seasonYearlyRestWeekly' start4_64.job
+qsub -t 124 -v h='1752' -v res='full' -v cyc='seasonYearlyRestWeekly' start4_64.job
+
+#qsub -t 125 -v h='8760' -v res='varied' -v cyc='seasonYearlyRestDaily' start4_64.job
+#qsub -t 126 -v h='4392' -v res='varied' -v cyc='seasonYearlyRestDaily' start4_64.job
+#qsub -t 127 -v h='1752' -v res='varied' -v cyc='seasonYearlyRestDaily' start4_64.job
+
+qsub -t 128 -v h='8760' -v res='full' -v cyc='seasonYearlyRestDaily' start4_64.job
+qsub -t 129 -v h='4392' -v res='full' -v cyc='seasonYearlyRestDaily' start4_64.job
+qsub -t 130 -v h='1752' -v res='full' -v cyc='seasonYearlyRestDaily' start4_64.job
+
 
 
 
