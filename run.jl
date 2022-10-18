@@ -8,14 +8,9 @@ res = ARGS[2]
 cyc = ARGS[3]
 t_int = parse(Int,ARGS[4]) # number of threads
 
+using AnyMOD, CSV
+using Gurobi 
 
-using Gurobi, AnyMOD, CSV
-
-t_int = 4
-
-h = "1752"
-res = "full"
-cyc = "allYearly"
 
 scr_str = "h" * h * "_" * res * "_" * cyc
 
@@ -31,8 +26,6 @@ set_optimizer_attribute(anyM.optModel, "Threads",t_int);
 set_optimizer_attribute(anyM.optModel, "BarConvTol", 1e-5);
 
 optimize!(anyM.optModel)
-
-printIIS(anyM)
 
 # ! report results
 reportResults(:summary,anyM)
