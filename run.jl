@@ -8,9 +8,6 @@ res = ARGS[2]
 cyc = ARGS[3]
 t_int = parse(Int,ARGS[4]) # number of threads
 
-using AnyMOD, CSV
-using Gurobi 
-
 
 scr_str = "h" * h * "_" * res * "_" * cyc
 
@@ -28,7 +25,7 @@ set_optimizer_attribute(anyM.optModel, "BarConvTol", 1e-5);
 optimize!(anyM.optModel)
 
 # ! report results
-reportResults(:summary,anyM)
+reportResults(:summary,anyM, addRep = (:cyc, :flh))
 
 # write storage levels
 
@@ -42,3 +39,4 @@ for st in stTech_arr
     stLvl_df = combine(x -> (variable = sum(x.variable)),groupby(stLvl_df,[:timestep_dispatch]))
     CSV.write("results/stLvl_" * scr_str * "_" * st * ".csv",stLvl_df)
 end
+
