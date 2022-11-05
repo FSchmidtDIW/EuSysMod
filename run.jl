@@ -1,7 +1,7 @@
 
 # ! import AnyMOD and options
 
-using Gurobi, AnyMOD
+using Gurobi, AnyMOD, CSV, FourierAnalysis
 
 h = ARGS[1]
 res = ARGS[2]
@@ -28,15 +28,40 @@ optimize!(anyM.optModel)
 reportResults(:summary,anyM, addRep = (:cyc, :flh))
 
 # write storage levels
-
 stTech_arr = ["lithiumBattery","redoxBattery","heatpumpAirSpace","heatpumpGroundSpace","resistiveHeatSpace","largeWaterTank","pitThermalStorage","h2StorageCavern","h2StorageTank","solarThermalResi_a","solarThermalResi_b","pumpedStorage","reservoir"]
 
 for st in stTech_arr
-
+    # get data 
     stLvl_df = printObject(anyM.parts.tech[Symbol(st)].var[:stLvl],anyM, rtnDf = (:csvDf,))
-    filter!(x -> x.region_dispatch[end-1:end] == "DE" ,stLvl_df)
-    select!(stLvl_df,[:timestep_dispatch,:variable])
-    stLvl_df = combine(x -> (variable = sum(x.variable)),groupby(stLvl_df,[:timestep_dispatch]))
+    select!(stLvl_df,[:timestep_dispatch,:region_dispatch,:variable])
+    stLvl_df[!,:region_dispatch] = map(x -> split(x," < ")[end], stLvl_df[!,:region_dispatch])
+    # unstack data
+    stLvl_df = unstack(stLvl_df,:region_dispatch,:variable)
+    stLvl_df[!,:timestep_dispatch] = map(x -> split(x," < ")[end], stLvl_df[!,:timestep_dispatch])
+    sort!(stLvl_df,[:timestep_dispatch])
+    # create aggregated column
+    stLvl_df[!,:agg] = map(x -> sum(x[filter(y -> !(y in ("timestep_dispatch")),names(stLvl_df))]), eachrow(stLvl_df))
+    # write data
     CSV.write("results/stLvl_" * scr_str * "_" * st * ".csv",stLvl_df)
 end
 
+# fourier FourierAnalysis of storage pattern
+
+for st in stTech_arr
+
+    stLvl_gdf = groupby(printObject(anyM.parts.tech[Symbol(st)].var[:stLvl],anyM, rtnDf = (:csvDf,)),[:region_dispatch])
+
+    # create dataframe for fourier results
+    frq_arr = FourierAnalysis.rfftfreq(size(stLvl_gdf[1],1))
+    four_df = DataFrame(frq = frq_arr, drt = 1 ./ frq_arr .* (8760/size(stLvl_gdf[1],1)) )
+
+    for gdf in stLvl_gdf
+        gdf[!,:timestep_dispatch] = map(x -> split(x," < ")[end], gdf[!,:timestep_dispatch])
+        sort!(gdf,[:timestep_dispatch])
+        stLvl_arr = gdf[!,:variable] .- mean(gdf[!,:variable])
+        four_df[!,Symbol(split(gdf[1,:region_dispatch]," < ")[end])] = abs.(FourierAnalysis.rfft(stLvl_arr))
+    end
+
+    four_df[!,:agg] = map(x -> sum(x[filter(y -> !(y in ("frq","drt")),names(four_df))]), eachrow(four_df))
+    CSV.write("results/fourier_" * scr_str * "_" * st * ".csv",four_df)
+end
