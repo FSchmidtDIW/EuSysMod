@@ -40,7 +40,7 @@ for st in stTech_arr
     stLvl_df[!,:timestep_dispatch] = map(x -> split(x," < ")[end], stLvl_df[!,:timestep_dispatch])
     sort!(stLvl_df,[:timestep_dispatch])
     # create aggregated column
-    stLvl_df[!,:agg] = map(x -> sum(x[filter(y -> !(y in ("timestep_dispatch")),names(stLvl_df))]), eachrow(stLvl_df))
+    stLvl_df[!,:agg] = map(x -> sum(x[filter(y -> !(y == "timestep_dispatch"),names(stLvl_df))]), eachrow(stLvl_df))
     # write data
     CSV.write("results/stLvl_" * scr_str * "_" * st * ".csv",stLvl_df)
 end
