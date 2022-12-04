@@ -50,30 +50,37 @@
 #qsub -t 129 -v h='4392' -v res='full' -v cyc='seasonYearlyRestDaily' start4_64.job
 #qsub -t 130 -v h='1752' -v res='full' -v cyc='seasonYearlyRestDaily' start4_64.job
 
-qsub -t 150 -v h='8760' -v res='varied' -v cyc='newSetup1' start4_64.job
-qsub -t 151 -v h='4392' -v res='varied' -v cyc='newSetup1' start4_64.job
-qsub -t 152 -v h='1752' -v res='varied' -v cyc='newSetup1' start4_64.job
+#qsub -t 150 -v h='8760' -v res='varied' -v cyc='newSetup1' start4_64.job
+#qsub -t 151 -v h='4392' -v res='varied' -v cyc='newSetup1' start4_64.job
+#qsub -t 152 -v h='1752' -v res='varied' -v cyc='newSetup1' start4_64.job
 
-qsub -t 153 -v h='8760' -v res='full' -v cyc='newSetup1' start4_64.job
-qsub -t 154 -v h='4392' -v res='full' -v cyc='newSetup1' start4_64.job
-qsub -t 155 -v h='1752' -v res='full' -v cyc='newSetup1' start4_64.job
+#qsub -t 153 -v h='8760' -v res='full' -v cyc='newSetup1' start4_64.job
+#qsub -t 154 -v h='4392' -v res='full' -v cyc='newSetup1' start4_64.job
+#qsub -t 155 -v h='1752' -v res='full' -v cyc='newSetup1' start4_64.job
 
-qsub -t 156 -v h='8760' -v res='varied' -v cyc='newSetup2' start4_64.job
-qsub -t 157 -v h='4392' -v res='varied' -v cyc='newSetup2' start4_64.job
-qsub -t 158 -v h='1752' -v res='varied' -v cyc='newSetup2' start4_64.job
+#qsub -t 156 -v h='8760' -v res='varied' -v cyc='newSetup2' start4_64.job
+#qsub -t 157 -v h='4392' -v res='varied' -v cyc='newSetup2' start4_64.job
+#qsub -t 158 -v h='1752' -v res='varied' -v cyc='newSetup2' start4_64.job
 
-qsub -t 159 -v h='8760' -v res='full' -v cyc='newSetup2' start4_64.job
-qsub -t 160 -v h='4392' -v res='full' -v cyc='newSetup2' start4_64.job
-qsub -t 161 -v h='1752' -v res='full' -v cyc='newSetup2' start4_64.job
+#qsub -t 159 -v h='8760' -v res='full' -v cyc='newSetup2' start4_64.job
+#qsub -t 160 -v h='4392' -v res='full' -v cyc='newSetup2' start4_64.job
+#qsub -t 161 -v h='1752' -v res='full' -v cyc='newSetup2' start4_64.job
 
-qsub -t 162 -v h='8760' -v res='varied' -v cyc='newSetup1_stBal' start4_64.job
-qsub -t 163 -v h='4392' -v res='varied' -v cyc='newSetup1_stBal' start4_64.job
-qsub -t 164 -v h='1752' -v res='varied' -v cyc='newSetup1_stBal' start4_64.job
+#qsub -t 162 -v h='8760' -v res='varied' -v cyc='newSetup1_stBal' start4_64.job
+#qsub -t 163 -v h='4392' -v res='varied' -v cyc='newSetup1_stBal' start4_64.job
+#qsub -t 164 -v h='1752' -v res='varied' -v cyc='newSetup1_stBal' start4_64.job
 
-qsub -t 165 -v h='8760' -v res='full' -v cyc='newSetup1_stBal' start4_64.job
-qsub -t 166 -v h='4392' -v res='full' -v cyc='newSetup1_stBal' start4_64.job
-qsub -t 167 -v h='1752' -v res='full' -v cyc='newSetup1_stBal' start4_64.job
+#qsub -t 165 -v h='8760' -v res='full' -v cyc='newSetup1_stBal' start4_64.job
+#qsub -t 166 -v h='4392' -v res='full' -v cyc='newSetup1_stBal' start4_64.job
+#qsub -t 167 -v h='1752' -v res='full' -v cyc='newSetup1_stBal' start4_64.job
 
+qsub -t 168 -v h='8760' -v res='varied' -v cyc='newSetup3' start4_64.job
+qsub -t 169 -v h='4392' -v res='varied' -v cyc='newSetup3' start4_64.job
+qsub -t 170 -v h='1752' -v res='varied' -v cyc='newSetup3' start4_64.job
+
+qsub -t 171 -v h='8760' -v res='full' -v cyc='newSetup3' start4_64.job
+qsub -t 172 -v h='4392' -v res='full' -v cyc='newSetup3' start4_64.job
+qsub -t 173 -v h='1752' -v res='full' -v cyc='newSetup3' start4_64.job
 
 
 
