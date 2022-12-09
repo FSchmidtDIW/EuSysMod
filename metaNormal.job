@@ -10,13 +10,13 @@
 #$ -M lgo@wip.tu-berlin.de
 
 
-#qsub -t 101 -v h='8760' -v res='varied' -v cyc='allYearly' start4_64.job
-#qsub -t 102 -v h='4392' -v res='varied' -v cyc='allYearly' start4_64.job
-#qsub -t 103 -v h='1752' -v res='varied' -v cyc='allYearly' start4_64.job
+qsub -t 101 -v h='8760' -v res='varied' -v cyc='allYearly' start4_64.job
+qsub -t 102 -v h='4392' -v res='varied' -v cyc='allYearly' start4_64.job
+qsub -t 103 -v h='1752' -v res='varied' -v cyc='allYearly' start4_64.job
 
-#qsub -t 104 -v h='8760' -v res='full' -v cyc='allYearly' start4_64.job
-#qsub -t 105 -v h='4392' -v res='full' -v cyc='allYearly' start4_64.job
-#qsub -t 106 -v h='1752' -v res='full' -v cyc='allYearly' start4_64.job
+qsub -t 104 -v h='8760' -v res='full' -v cyc='allYearly' start4_64.job
+qsub -t 105 -v h='4392' -v res='full' -v cyc='allYearly' start4_64.job
+qsub -t 106 -v h='1752' -v res='full' -v cyc='allYearly' start4_64.job
 
 #qsub -t 107 -v h='8760' -v res='varied' -v cyc='allMonthly' start4_64.job
 #qsub -t 108 -v h='4392' -v res='varied' -v cyc='allMonthly' start4_64.job
@@ -74,13 +74,13 @@
 #qsub -t 166 -v h='4392' -v res='full' -v cyc='newSetup1_stBal' start4_64.job
 #qsub -t 167 -v h='1752' -v res='full' -v cyc='newSetup1_stBal' start4_64.job
 
-qsub -t 168 -v h='8760' -v res='varied' -v cyc='newSetup3' start4_64.job
-qsub -t 169 -v h='4392' -v res='varied' -v cyc='newSetup3' start4_64.job
-qsub -t 170 -v h='1752' -v res='varied' -v cyc='newSetup3' start4_64.job
+#qsub -t 168 -v h='8760' -v res='varied' -v cyc='newSetup3' start4_64.job
+#qsub -t 169 -v h='4392' -v res='varied' -v cyc='newSetup3' start4_64.job
+#qsub -t 170 -v h='1752' -v res='varied' -v cyc='newSetup3' start4_64.job
 
-qsub -t 171 -v h='8760' -v res='full' -v cyc='newSetup3' start4_64.job
-qsub -t 172 -v h='4392' -v res='full' -v cyc='newSetup3' start4_64.job
-qsub -t 173 -v h='1752' -v res='full' -v cyc='newSetup3' start4_64.job
+#qsub -t 171 -v h='8760' -v res='full' -v cyc='newSetup3' start4_64.job
+#qsub -t 172 -v h='4392' -v res='full' -v cyc='newSetup3' start4_64.job
+#qsub -t 173 -v h='1752' -v res='full' -v cyc='newSetup3' start4_64.job
 
 
 
