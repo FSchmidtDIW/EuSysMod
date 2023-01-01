@@ -10,7 +10,7 @@ miscSpaceHeat,,resistiveHeatSpace,,electricity,spaceHeat,,spaceHeat,mature,none,
 networkHeat,heatGrid,districtHeatSpace,,districtHeat,spaceHeat,,,mature,none,,,,
 networkHeat,,eBoilerDh,,electricity,districtHeat,,,mature,none,,,,
 networkHeat,,h2BoilerDh,,h2,districtHeat,,,mature,none,,,,
-networkHeat,,largeWaterTank,,,,districtHeat,districtHeat,mature,none,,,,3
+networkHeat,,largeWaterTank,,,,districtHeat,districtHeat,mature,none,,,,2
 networkHeat,,pitThermalStorage,,,,districtHeat,districtHeat,mature,none,,,,2
 ocgt,,ocgtH2,,h2,electricity,,,mature,none,,,,
 ocgt,,ocgtH2Chp,,h2,electricity; districtHeat,,,mature,none,,,,
@@ -31,7 +31,7 @@ solar,rooftopResi_a,pvResi_a,,,electricity,,,mature,none,4,,yes,
 solar,rooftopResi_a,solarThermalResi_a,,,spaceHeat,,spaceHeat,mature,none,4,,yes,3
 solar,rooftopResi_b,pvResi_b,,,electricity,,,mature,none,4,,yes,
 solar,rooftopResi_b,solarThermalResi_b,,,spaceHeat,,spaceHeat,mature,none,4,,yes,3
-stock,power,pumpedStorage,,,,electricity,electricity,stock,none,,,,3
+stock,power,pumpedStorage,,,,electricity,electricity,stock,none,,,,2
 stock,power,reservoir,,,,,electricity,stock,none,,,,2
 stock,power,runOfRiver,,,electricity,,,stock,none,,,,
 wind,offshore,offshore_a,,,electricity,,,mature,none,4,,yes,

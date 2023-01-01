@@ -18,73 +18,29 @@ qsub -t 104 -v h='8760' -v res='full' -v cyc='allYearly' start4_64.job
 qsub -t 105 -v h='4392' -v res='full' -v cyc='allYearly' start4_64.job
 qsub -t 106 -v h='1752' -v res='full' -v cyc='allYearly' start4_64.job
 
-#qsub -t 107 -v h='8760' -v res='varied' -v cyc='allMonthly' start4_64.job
-#qsub -t 108 -v h='4392' -v res='varied' -v cyc='allMonthly' start4_64.job
-#qsub -t 109 -v h='1752' -v res='varied' -v cyc='allMonthly' start4_64.job
+qsub -t 156 -v h='8760' -v res='varied' -v cyc='newSetup2' start4_64.job
+qsub -t 157 -v h='4392' -v res='varied' -v cyc='newSetup2' start4_64.job
+qsub -t 158 -v h='1752' -v res='varied' -v cyc='newSetup2' start4_64.job
 
-#qsub -t 110 -v h='8760' -v res='full' -v cyc='allMonthly' start4_64.job
-#qsub -t 111 -v h='4392' -v res='full' -v cyc='allMonthly' start4_64.job
-#qsub -t 112 -v h='1752' -v res='full' -v cyc='allMonthly' start4_64.job
+qsub -t 159 -v h='8760' -v res='full' -v cyc='newSetup2' start4_64.job
+qsub -t 160 -v h='4392' -v res='full' -v cyc='newSetup2' start4_64.job
+qsub -t 161 -v h='1752' -v res='full' -v cyc='newSetup2' start4_64.job
 
-#qsub -t 113 -v h='8760' -v res='varied' -v cyc='seasonYearlyRestMonthly' start4_64.job
-#qsub -t 114 -v h='4392' -v res='varied' -v cyc='seasonYearlyRestMonthly' start4_64.job
-#qsub -t 115 -v h='1752' -v res='varied' -v cyc='seasonYearlyRestMonthly' start4_64.job
+qsub -t 168 -v h='8760' -v res='varied' -v cyc='newSetup3' start4_64.job
+qsub -t 169 -v h='4392' -v res='varied' -v cyc='newSetup3' start4_64.job
+qsub -t 170 -v h='1752' -v res='varied' -v cyc='newSetup3' start4_64.job
 
-#qsub -t 116 -v h='8760' -v res='full' -v cyc='seasonYearlyRestMonthly' start4_64.job
-#qsub -t 117 -v h='4392' -v res='full' -v cyc='seasonYearlyRestMonthly' start4_64.job
-#qsub -t 118 -v h='1752' -v res='full' -v cyc='seasonYearlyRestMonthly' start4_64.job
+qsub -t 171 -v h='8760' -v res='full' -v cyc='newSetup3' start4_64.job
+qsub -t 172 -v h='4392' -v res='full' -v cyc='newSetup3' start4_64.job
+qsub -t 173 -v h='1752' -v res='full' -v cyc='newSetup3' start4_64.job
 
-#qsub -t 119 -v h='8760' -v res='varied' -v cyc='seasonYearlyRestWeekly' start4_64.job
-#qsub -t 120 -v h='4392' -v res='varied' -v cyc='seasonYearlyRestWeekly' start4_64.job
-#qsub -t 121 -v h='1752' -v res='varied' -v cyc='seasonYearlyRestWeekly' start4_64.job
+qsub -t 174 -v h='8760' -v res='varied' -v cyc='newSetup4' start4_64.job
+qsub -t 175 -v h='4392' -v res='varied' -v cyc='newSetup4' start4_64.job
+qsub -t 176 -v h='1752' -v res='varied' -v cyc='newSetup4' start4_64.job
 
-#qsub -t 122 -v h='8760' -v res='full' -v cyc='seasonYearlyRestWeekly' start4_64.job
-#qsub -t 123 -v h='4392' -v res='full' -v cyc='seasonYearlyRestWeekly' start4_64.job
-#qsub -t 124 -v h='1752' -v res='full' -v cyc='seasonYearlyRestWeekly' start4_64.job
-
-#qsub -t 125 -v h='8760' -v res='varied' -v cyc='seasonYearlyRestDaily' start4_64.job
-#qsub -t 126 -v h='4392' -v res='varied' -v cyc='seasonYearlyRestDaily' start4_64.job
-#qsub -t 127 -v h='1752' -v res='varied' -v cyc='seasonYearlyRestDaily' start4_64.job
-
-#qsub -t 128 -v h='8760' -v res='full' -v cyc='seasonYearlyRestDaily' start4_64.job
-#qsub -t 129 -v h='4392' -v res='full' -v cyc='seasonYearlyRestDaily' start4_64.job
-#qsub -t 130 -v h='1752' -v res='full' -v cyc='seasonYearlyRestDaily' start4_64.job
-
-#qsub -t 150 -v h='8760' -v res='varied' -v cyc='newSetup1' start4_64.job
-#qsub -t 151 -v h='4392' -v res='varied' -v cyc='newSetup1' start4_64.job
-#qsub -t 152 -v h='1752' -v res='varied' -v cyc='newSetup1' start4_64.job
-
-#qsub -t 153 -v h='8760' -v res='full' -v cyc='newSetup1' start4_64.job
-#qsub -t 154 -v h='4392' -v res='full' -v cyc='newSetup1' start4_64.job
-#qsub -t 155 -v h='1752' -v res='full' -v cyc='newSetup1' start4_64.job
-
-#qsub -t 156 -v h='8760' -v res='varied' -v cyc='newSetup2' start4_64.job
-#qsub -t 157 -v h='4392' -v res='varied' -v cyc='newSetup2' start4_64.job
-#qsub -t 158 -v h='1752' -v res='varied' -v cyc='newSetup2' start4_64.job
-
-#qsub -t 159 -v h='8760' -v res='full' -v cyc='newSetup2' start4_64.job
-#qsub -t 160 -v h='4392' -v res='full' -v cyc='newSetup2' start4_64.job
-#qsub -t 161 -v h='1752' -v res='full' -v cyc='newSetup2' start4_64.job
-
-#qsub -t 162 -v h='8760' -v res='varied' -v cyc='newSetup1_stBal' start4_64.job
-#qsub -t 163 -v h='4392' -v res='varied' -v cyc='newSetup1_stBal' start4_64.job
-#qsub -t 164 -v h='1752' -v res='varied' -v cyc='newSetup1_stBal' start4_64.job
-
-#qsub -t 165 -v h='8760' -v res='full' -v cyc='newSetup1_stBal' start4_64.job
-#qsub -t 166 -v h='4392' -v res='full' -v cyc='newSetup1_stBal' start4_64.job
-#qsub -t 167 -v h='1752' -v res='full' -v cyc='newSetup1_stBal' start4_64.job
-
-#qsub -t 168 -v h='8760' -v res='varied' -v cyc='newSetup3' start4_64.job
-#qsub -t 169 -v h='4392' -v res='varied' -v cyc='newSetup3' start4_64.job
-#qsub -t 170 -v h='1752' -v res='varied' -v cyc='newSetup3' start4_64.job
-
-#qsub -t 171 -v h='8760' -v res='full' -v cyc='newSetup3' start4_64.job
-#qsub -t 172 -v h='4392' -v res='full' -v cyc='newSetup3' start4_64.job
-#qsub -t 173 -v h='1752' -v res='full' -v cyc='newSetup3' start4_64.job
-
-
-
-
+qsub -t 177 -v h='8760' -v res='full' -v cyc='newSetup4' start4_64.job
+qsub -t 178 -v h='4392' -v res='full' -v cyc='newSetup4' start4_64.job
+qsub -t 179 -v h='1752' -v res='full' -v cyc='newSetup4' start4_64.job
 
 
 
