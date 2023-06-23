@@ -1,35 +1,13 @@
-b = "C:/Users/lgoeke/git/AnyMOD.jl/"
-	
-using Base.Threads, CSV, Dates, LinearAlgebra, Requires, YAML
-using MathOptInterface, Reexport, Statistics, SparseArrays
-using DataFrames, JuMP, Suppressor, Plotly
-using DelimitedFiles
+#import Pkg; Pkg.activate(".")
+# Pkg.instantiate()
+# ! import AnyMOD and packages
 
-include(b* "src/objects.jl")
-include(b* "src/tools.jl")
-include(b* "src/modelCreation.jl")
-include(b* "src/decomposition.jl")
+using AnyMOD, Gurobi, CSV
 
-include(b* "src/optModel/technology.jl")
-include(b* "src/optModel/exchange.jl")
-include(b* "src/optModel/system.jl")
-include(b* "src/optModel/cost.jl")
-include(b* "src/optModel/other.jl")
-include(b* "src/optModel/objective.jl")
-
-include(b* "src/dataHandling/mapping.jl")
-include(b* "src/dataHandling/parameter.jl")
-include(b* "src/dataHandling/readIn.jl")
-include(b* "src/dataHandling/tree.jl")
-include(b* "src/dataHandling/util.jl")
-
-include(b* "src/dataHandling/gurobiTools.jl")
-
-
-h = "96"
-inSub = "4"
-t_int = 4
-impH2 = "none"
+h = ARGS[1]
+inSub = ARGS[2]
+impH2 = ARGS[3]
+t_int = parse(Int,ARGS[4])
 
 b = "" # add the model dir here
 input_arr = [b * "_basis",b * "impH2/" * impH2,b * "timeSeries/" * h * "hours_det",b * "timeSeries/" * h * "hours_inSub" * inSub]
@@ -46,13 +24,9 @@ set_optimizer_attribute(anyM.optModel, "Method", 2);
 set_optimizer_attribute(anyM.optModel, "Crossover", 0);
 set_optimizer_attribute(anyM.optModel, "Threads",t_int);
 
-set_optimizer_attribute(anyM.optModel, "BarConvTol", 1e-3);
-
 optimize!(anyM.optModel)
 
-anyM.parts.lim.cns
-
-printIIS(anyM)
+printObject(anyM.parts.bal.cns[:enBalH2],anyM)
 
 # reporting
 reportResults(:cost,anyM)
@@ -66,5 +40,3 @@ for tSym in (:reservoir,:h2Cavern)
 end
 
 reportTimeSeries(:electricity,anyM)
-
-printObject(anyM.parts.bal.cns[:enBalH2],anyM)

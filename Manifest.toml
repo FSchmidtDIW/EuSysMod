@@ -6,8 +6,8 @@ project_hash = "ecf900103db9a5d094901c159ac75105e56fc9ae"
 
 [[deps.AnyMOD]]
 deps = ["CSV", "CategoricalArrays", "DataFrames", "Dates", "DelimitedFiles", "Graphs", "JSON", "JuMP", "LinearAlgebra", "MathOptInterface", "Pkg", "Plotly", "Reexport", "Requires", "SparseArrays", "Statistics", "Suppressor", "YAML"]
-git-tree-sha1 = "5f8cca79b8dce0e7928d05cb35bb03615479a9f2"
-repo-rev = "ecd125c93da424fd850c071958bd39c5d2562454"
+git-tree-sha1 = "923b0748e681f902cbde18660cc2be9bec6f9acf"
+repo-rev = "203ede9fa24d01f888a8d54b528a2970532f0ee5"
 repo-url = "https://github.com/leonardgoeke/AnyMOD.jl"
 uuid = "16ed6a40-d4c3-11e9-1e10-59384530c1b4"
 version = "0.2.0"
@@ -319,9 +319,9 @@ version = "0.21.4"
 
 [[deps.JuMP]]
 deps = ["LinearAlgebra", "MathOptInterface", "MutableArithmetics", "OrderedCollections", "Printf", "SnoopPrecompile", "SparseArrays"]
-git-tree-sha1 = "3e4a73edf2ca1bfe97f1fc86eb4364f95ef0fccd"
+git-tree-sha1 = "b0ded4f36829f7cfd4400b11289faf9b4f0b795a"
 uuid = "4076af6c-e467-56ae-b986-b466b2749572"
-version = "1.11.1"
+version = "1.12.0"
 
 [[deps.Kaleido_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -427,9 +427,9 @@ version = "2022.2.1"
 
 [[deps.Mustache]]
 deps = ["Printf", "Tables"]
-git-tree-sha1 = "87c371d27dbf2449a5685652ab322be163269df0"
+git-tree-sha1 = "821e918c170ead5298ff84bffee41dd28929a681"
 uuid = "ffc61752-8dc7-55ee-8c37-f3e9cdd09e70"
-version = "1.0.15"
+version = "1.0.17"
 
 [[deps.MutableArithmetics]]
 deps = ["LinearAlgebra", "SparseArrays", "Test"]
@@ -605,9 +605,9 @@ uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
 
 [[deps.SortingAlgorithms]]
 deps = ["DataStructures"]
-git-tree-sha1 = "a4ada03f999bd01b3a25dcaa30b2d929fe537e00"
+git-tree-sha1 = "c60ec5c62180f27efea3ba2908480f8055e17cee"
 uuid = "a2af1166-a08f-5f64-846c-94a0d3cef48c"
-version = "1.1.0"
+version = "1.1.1"
 
 [[deps.SparseArrays]]
 deps = ["LinearAlgebra", "Random"]
@@ -646,9 +646,10 @@ uuid = "892a3eda-7b42-436c-8928-eab12a02cf0e"
 version = "0.3.0"
 
 [[deps.Suppressor]]
-git-tree-sha1 = "c6ed566db2fe3931292865b966d6d140b7ef32a9"
+deps = ["Logging"]
+git-tree-sha1 = "9a428c8eb6cca9a9566ab619b176e83d441064ba"
 uuid = "fd094767-a336-5f1f-9728-57cf17d0bbfb"
-version = "0.2.1"
+version = "0.2.3"
 
 [[deps.TOML]]
 deps = ["Dates"]

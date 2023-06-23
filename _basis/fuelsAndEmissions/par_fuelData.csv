@@ -10,7 +10,5 @@ hardcoal,,2030,trdBuyPrc,8.002933956,
 hardcoal,,2040,trdBuyPrc,8.203007305,
 gasFuel,naturalGas,2030,trdBuyPrc,23.89805201,
 gasFuel,naturalGas,2040,trdBuyPrc,26.67689527,
-h2,,2030,trdBuyPrc,213,"Fraunhofer ISE (2020), Wege zu einem klimaneutralen Energiesystem, Anhang"
-h2,,2040,trdBuyPrc,164,"Fraunhofer ISE (2020), Wege zu einem klimaneutralen Energiesystem, Anhang"
 lignite,,,trdBuyPrc,1.5,
 waste,,,trdBuyPrc,14.07599999,

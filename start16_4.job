@@ -16,5 +16,4 @@ export GUROBI_HOME
 module add gurobi/9.0.2
 module add julia/1.7.3
 
-julia runBendersMulti.jl $method $switch $ini $conv $vi $scr $ram $NSLOTS
-
+julia run.jl $h $inSub $impH2 $NSLOTS

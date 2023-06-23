@@ -1,2 +1,3 @@
-timestep_1,parameter,value
-2040,emissionUp,0
+timestep_1,parameter,scenario_1,value
+2040,emissionUp,all,0
+2030,emissionUp,all,914
