@@ -36,7 +36,7 @@ reportResults(:exchange,anyM)
 for tSym in (:reservoir,:h2Cavern)
     stLvl_df = combine(x -> (lvl = sum(value.(x.var)),), groupby(anyM.parts.tech[tSym].var[:stLvl],[:Ts_dis,:scr]))
     stLvl_df = unstack(sort(stLvl_df,:Ts_dis),:scr,:lvl)
-    CSV.write(resultDir_str * "/stLvl_" * string(tSym) * "_" * h * "hours_inSub" * inSub * ".csv",stLvl_df)
+    CSV.write(resultDir_str * "/stLvl_" * string(tSym) * "_" * h * "hours_inSub" * inSub * "_impH2_" * impH2 * ".csv",stLvl_df)
 end
 
 reportTimeSeries(:electricity,anyM)
