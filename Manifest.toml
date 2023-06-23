@@ -6,8 +6,8 @@ project_hash = "ecf900103db9a5d094901c159ac75105e56fc9ae"
 
 [[deps.AnyMOD]]
 deps = ["CSV", "CategoricalArrays", "DataFrames", "Dates", "DelimitedFiles", "Graphs", "JSON", "JuMP", "LinearAlgebra", "MathOptInterface", "Pkg", "Plotly", "Reexport", "Requires", "SparseArrays", "Statistics", "Suppressor", "YAML"]
-git-tree-sha1 = "923b0748e681f902cbde18660cc2be9bec6f9acf"
-repo-rev = "203ede9fa24d01f888a8d54b528a2970532f0ee5"
+git-tree-sha1 = "5569664a168bd8e8b7adda1f6ef4de1e51b66bb0"
+repo-rev = "fcfcbdda0baa4cd42e32fbbe6d03172bbb689037"
 repo-url = "https://github.com/leonardgoeke/AnyMOD.jl"
 uuid = "16ed6a40-d4c3-11e9-1e10-59384530c1b4"
 version = "0.2.0"
