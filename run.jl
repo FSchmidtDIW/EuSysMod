@@ -22,11 +22,10 @@ setObjective!(:cost,anyM)
 set_optimizer(anyM.optModel, Gurobi.Optimizer)
 set_optimizer_attribute(anyM.optModel, "Method", 2);
 set_optimizer_attribute(anyM.optModel, "Crossover", 0);
+set_optimizer_attribute(anyM.optModel, "NumericFocus", 3);
 set_optimizer_attribute(anyM.optModel, "Threads",t_int);
 
 optimize!(anyM.optModel)
-
-printObject(anyM.parts.bal.cns[:enBalH2],anyM)
 
 # reporting
 reportResults(:cost,anyM)

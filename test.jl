@@ -3,7 +3,7 @@ b = "C:/Users/lgoeke/git/AnyMOD.jl/"
 using Base.Threads, CSV, Dates, LinearAlgebra, Requires, YAML
 using MathOptInterface, Reexport, Statistics, SparseArrays
 using DataFrames, JuMP, Suppressor, Plotly
-using DelimitedFiles
+using DelimitedFiles, CategoricalArrays
 
 include(b* "src/objects.jl")
 include(b* "src/tools.jl")
@@ -50,21 +50,30 @@ set_optimizer_attribute(anyM.optModel, "BarConvTol", 1e-3);
 
 optimize!(anyM.optModel)
 
-anyM.parts.lim.cns
-
-printIIS(anyM)
-
 # reporting
+reportResults(:summary,anyM, addRep = (:flh,:cyc,:effConv))
 reportResults(:cost,anyM)
-reportResults(:summary,anyM)
 reportResults(:exchange,anyM)
+reportTimeSeries(:electricity,anyM)
 
+plotSankeyDiagram(anyM, frsScr = Dict("eins" => Dict("2030" => ("scr1","scr1","scr1","scr1"),)), formatScr = (3,true))
+
+# write storage levels to csv
 for tSym in (:reservoir,:h2Cavern)
     stLvl_df = combine(x -> (lvl = sum(value.(x.var)),), groupby(anyM.parts.tech[tSym].var[:stLvl],[:Ts_dis,:scr]))
     stLvl_df = unstack(sort(stLvl_df,:Ts_dis),:scr,:lvl)
     CSV.write(resultDir_str * "/stLvl_" * string(tSym) * "_" * h * "hours_inSub" * inSub * ".csv",stLvl_df)
 end
 
-reportTimeSeries(:electricity,anyM)
+# write stress indicator
+c_sym = :electricity
+cns_df = copy(anyM.parts.bal.cns[Symbol(:enBal,makeUp(c_sym))])
+cns_df[!,:value] .= dual.(cns_df[!,:cns])
 
-printObject(anyM.parts.bal.cns[:enBalH2],anyM)
+aggDual_df = combine(x -> (value = sum(x.value),),groupby(cns_df,[:Ts_disSup,:Ts_dis,:C,:scr]))
+printObject(aggDual_df,anyM)
+
+
+
+# make script for data conversion
+
