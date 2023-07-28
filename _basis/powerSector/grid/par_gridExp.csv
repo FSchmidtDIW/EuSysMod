@@ -19,7 +19,6 @@ BE,FR,powerGrid,hvac,1,expExcUp,3,costExpExc,249.67
 BE,FR,powerGrid,hvac,2,expExcUp,1,costExpExc,236
 BE,FR,powerGrid,hvac,3,expExcUp,2,costExpExc,185.5
 BE,FR,powerGrid,hvac,4,expExcUp,1,costExpExc,90
-BE,LU,powerGrid,hvac,1,expExcUp,0.5,costExpExc,420
 BE,NL,powerGrid,hvac,1,expExcUp,1,costExpExc,1090
 BE,NL,powerGrid,hvac,2,expExcUp,2,costExpExc,980
 BE,NL,powerGrid,hvac,3,expExcUp,1,costExpExc,890
@@ -39,11 +38,8 @@ DE,FR,powerGrid,hvac,2,expExcUp,2,costExpExc,1000
 DE,FR,powerGrid,hvac,3,expExcUp,3,costExpExc,1000
 DE,FR,powerGrid,hvac,4,expExcUp,0.3,costExpExc,163.33
 DE,FR,powerGrid,hvac,5,expExcUp,1.5,costExpExc,62.67
-DE,LU,powerGrid,hvac,1,expExcUp,1,costExpExc,350
-DE,LU,powerGrid,hvac,2,expExcUp,1,costExpExc,166
 DE,NL,powerGrid,hvac,1,expExcUp,0.5,costExpExc,3700
 DE,NL,powerGrid,hvac,2,expExcUp,1,costExpExc,2075
 DE,NL,powerGrid,hvac,3,expExcUp,2,costExpExc,1325
 DE,NL,powerGrid,hvac,4,expExcUp,3,costExpExc,1075
 DE,NL,powerGrid,hvac,5,expExcUp,1,costExpExc,200
-FR,LU,powerGrid,hvac,,expExcFix,0,,
