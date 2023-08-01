@@ -26,17 +26,16 @@ include(b* "src/dataHandling/util.jl")
 include(b* "src/dataHandling/gurobiTools.jl")
 
 
-h = "96"
-inSub = "4"
+h = "8760"
 t_int = 4
 impH2 = "none"
 
 b = "" # add the model dir here
-input_arr = [b * "_basis",b * "impH2/" * impH2,b * "timeSeries/" * h * "hours_det",b * "timeSeries/" * h * "hours_inSub" * inSub]
+input_arr = [b * "_basis",b * "impH2/" * impH2,b * "timeSeries/" * h * "hours_det",b * "timeSeries/" * h * "hours_testBoost"]
 resultDir_str = b * "results"
 
 # create and solve model
-anyM = anyModel(input_arr, resultDir_str, objName = h * "hours_inSub" * inSub * "_impH2_" * impH2, lvlFrs = 2, supTsLvl = 1,reportLvl = 2, shortExp = 10, coefRng = (mat = (1e-2,1e3), rhs = (1e0,1e3)), scaFac = (capa = 1e2, capaStSize = 1e3, insCapa = 1e1, dispConv = 0.4e1, dispSt = 1e1, dispExc = 1e2, dispTrd = 1e3, costDisp = 1e1, costCapa = 1e2, obj = 1e0))
+anyM = anyModel(input_arr, resultDir_str, objName = h * "hours_testBoost_impH2_" * impH2, supTsLvl = 1,reportLvl = 2, shortExp = 10, coefRng = (mat = (1e-2,1e3), rhs = (1e0,1e3)), scaFac = (capa = 1e2, capaStSize = 1e3, insCapa = 1e1, dispConv = 0.4e1, dispSt = 1e1, dispExc = 1e2, dispTrd = 1e3, costDisp = 1e1, costCapa = 1e2, obj = 1e0))
 
 createOptModel!(anyM)
 setObjective!(:cost,anyM)
@@ -56,7 +55,8 @@ reportResults(:cost,anyM)
 reportResults(:exchange,anyM)
 reportTimeSeries(:electricity,anyM)
 
-plotSankeyDiagram(anyM, frsScr = Dict("eins" => Dict("2030" => ("scr1","scr1","scr1","scr1"),)), formatScr = (3,true))
+anyM.graInfo.colors["h2"] = anyM.graInfo.colors["hydrogen"]
+plotSankeyDiagram(anyM)
 
 # write storage levels to csv
 for tSym in (:reservoir,:h2Cavern)
@@ -66,14 +66,9 @@ for tSym in (:reservoir,:h2Cavern)
 end
 
 # write stress indicator
-c_sym = :electricity
+c_sym = :h2
 cns_df = copy(anyM.parts.bal.cns[Symbol(:enBal,makeUp(c_sym))])
 cns_df[!,:value] .= dual.(cns_df[!,:cns])
 
 aggDual_df = combine(x -> (value = sum(x.value),),groupby(cns_df,[:Ts_disSup,:Ts_dis,:C,:scr]))
-printObject(aggDual_df,anyM)
-
-
-
-# make script for data conversion
-
+printObject(aggDual_df,anyM, fileName = "dual_" * string(c_sym))
