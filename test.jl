@@ -66,7 +66,7 @@ for tSym in (:reservoir,:h2Cavern)
 end
 
 # write stress indicator
-c_sym = :h2
+c_sym = :electricity
 cns_df = copy(anyM.parts.bal.cns[Symbol(:enBal,makeUp(c_sym))])
 cns_df[!,:value] .= dual.(cns_df[!,:cns])
 
