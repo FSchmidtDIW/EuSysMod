@@ -1,8 +1,8 @@
 import Pkg; Pkg.activate(".")
 # Pkg.instantiate()
-using AnyMOD, Gurobi, CSV, Base.Threads
+#using AnyMOD, Gurobi, CSV, Base.Threads
 
-b = "C:/Users/lgoeke/git/AnyMOD.jl/"
+b = "C:\\Felix Data\\PhD\\Benders Paper\\2nd revision\\git\\AnyMOD.jl/"
 
 using Base.Threads, CSV, Dates, LinearAlgebra, Requires, YAML
 using MathOptInterface, Reexport, Statistics, SparseArrays, CategoricalArrays
@@ -35,7 +35,7 @@ suffix_str = "_test"
 
 # defines stabilization options
 meth_tup = (:qtr => (start = 5e-2, low = 1e-6,  thr = 7.5e-4, fac = 2.0),)
-#meth_tup = (:prx => (start = 0.5, max = 5e0, fac = 2.0),)
+#meth_tup = (:prx => (start = 1.0,a=2,min=0.1),)
 #meth_tup = (:lvl => (la = 0.5,),:qtr => (start = 5e-2, low = 1e-6,  thr = 7.5e-4, fac = 2.0))
 #meth_tup = tuple()
 #meth_tup = (:box => (low = 0.05, up = 0.05, minUp = 0.5),)
@@ -66,7 +66,7 @@ res = 96 # temporal resolution
 frs = 0 # level of foresight
 scr = 2 # number of scenarios
 t_int = 4
-dir_str = "C:/Users/lgoeke/git/EuSysMod/"
+dir_str = "C:/Felix Data/PhD/Benders Paper/2nd revision/git/EuSysMod/"
 
 if !isempty(nearOpt_ntup) && any(getindex.(meth_tup,1) .!= :qtr) error("Near-optimal can only be paired with quadratic stabilization!") end
 
@@ -178,7 +178,7 @@ itrReport_df = DataFrame(i = Int[], lowCost = Float64[], bestObj = Float64[], ga
 
 nameStab_dic = Dict(:lvl => "level bundle",:qtr => "quadratic trust-region", :prx => "proximal bundle", :box => "box-step method")
 
-let i = 1, gap = gap, gap_fl = 1.0, currentBest_fl = !isempty(meth_tup) ? startSol_obj.objVal : Inf, minStep_fl = 0.0, nOpt_int = 0, costOpt_fl = Inf, lssOpt_fl = Inf, nearOptObj_fl = Inf
+let i = 1, gap = gap, gap_fl = 1.0, currentBest_fl = !isempty(meth_tup) ? startSol_obj.objVal : Inf, minStep_fl = 0.0, nOpt_int = 0, costOpt_fl = Inf, lssOpt_fl = Inf, nearOptObj_fl = Inf, adjCtr_count = 0, null_step_count = 0
 	
 	if top_m.options.lvlFrs != 0
 		stReport_df = DataFrame(iteration = Int[], timestep_superordinate_expansion = String[], timestep_superordinate_dispatch = String[], timestep_dispatch = String[], region_dispatch = String[], carrier = String[],
@@ -187,9 +187,16 @@ let i = 1, gap = gap, gap_fl = 1.0, currentBest_fl = !isempty(meth_tup) ? startS
 	
 	if !isempty(meth_tup)
 		itrReport_df[!,:actMethod] = Symbol[]
-		foreach(x -> itrReport_df[!,Symbol("dynPar_",x)] = Float64[], stab_obj.method)
+		for x in 1:length(stab_obj.method)
+			if isa(stab_obj.dynPar[x],Dict)	
+				foreach(y -> itrReport_df[!,Symbol("dynPar_",stab_obj.method[x],"_",y)] = Float64[], keys(stab_obj.dynPar[x]))
+			else
+				itrReport_df[!,Symbol("dynPar_",stab_obj.method[x])] = Float64[]
+			end
+		end
 	end
 	
+
 	if !isempty(nearOpt_ntup)
 		nearOpt_df = DataFrame(iteration = Int[], timestep = String[], region = String[], system = String[], id = String[], capacity_variable = Symbol[], capacity_value = Float64[], cost = Float64[], lss = Float64[])
 		itrReport_df[!,:objective] = String[]
@@ -224,9 +231,11 @@ let i = 1, gap = gap, gap_fl = 1.0, currentBest_fl = !isempty(meth_tup) ? startS
 		#region # * check results
 
 		# ! get objective of sub-problems, current best solution and current error of cutting plane
-		expStep_fl = nOpt_int == 0 ? (currentBest_fl - estCost_fl) : 0.0 # expected step size
+		expStep_fl = nOpt_int == 0 ? (stab_obj.objVal - estCost_fl) : 0.0 # expected step size
+		#actStep_fl = (stab_obj.objVal - (topCost_fl + subCost_fl))
 		subCost_fl = sum(map(x -> x.objVal, values(cutData_dic))) # objective of sub-problems
-		currentBest_fl = min(nOpt_int == 0 ? (topCost_fl + subCost_fl) : (subCost_fl - (estCost_fl - topCost_fl)), currentBest_fl) # current best value
+		#currentBest_fl = min(nOpt_int == 0 ? (topCost_fl + subCost_fl) : (subCost_fl - (estCost_fl - topCost_fl)), currentBest_fl) # current best value
+		currentBest_fl = nOpt_int == 0 ? (topCost_fl + subCost_fl) : (subCost_fl - (estCost_fl - topCost_fl)) # current value
 
 		# reporting on current results
 		if top_m.options.lvlFrs != 0 && i%reportFreq == 0 
@@ -257,12 +266,14 @@ let i = 1, gap = gap, gap_fl = 1.0, currentBest_fl = !isempty(meth_tup) ? startS
 				adjCtr_boo = true
 				produceMessage(report_m.options,report_m.report, 1," - Updated reference point for stabilization!", testErr = false, printErr = false)
 			end
-
+			# count number of consecutive serious steps
+			adjCtr_count = adjCtr_boo ? adjCtr_count+1 : 0
+			null_step_count = adjCtr_boo ? 0 : null_step_count+1
 			# solve problem without stabilization method
 			topCostNoStab_fl, estCostNoStab_fl = @suppress runTopWithoutStab(top_m,stab_obj) # run top without trust region
-			
+			#estCostNoStab_fl = estCost_fl
 			# adjust dynamic parameters of stabilization
-			foreach(i -> adjustDynPar!(stab_obj,top_m,i,adjCtr_boo,estCostNoStab_fl,estCost_fl,currentBest_fl,nOpt_int != 0,report_m), 1:length(stab_obj.method))
+			foreach(i -> adjustDynPar!(stab_obj,top_m,i,adjCtr_boo,adjCtr_count,null_step_count,estCostNoStab_fl,estCost_fl,currentBest_fl,nOpt_int != 0,report_m), 1:length(stab_obj.method))
 	
 			estCost_fl = estCostNoStab_fl # set lower limit for convergence check to lower limit without trust region
 		end
@@ -272,24 +283,32 @@ let i = 1, gap = gap, gap_fl = 1.0, currentBest_fl = !isempty(meth_tup) ? startS
 		#region # * report on iteration
 
 		# computes optimality gap for cost minimization and feasibility gap for near-optimal
-		gap_fl = nOpt_int > 0 ? abs(currentBest_fl / costOpt_fl) : (1 - estCost_fl/currentBest_fl)
+		gap_fl = nOpt_int > 0 ? abs(currentBest_fl / costOpt_fl) : (1 - estCost_fl/stab_obj.objVal)
 
 		timeTop_fl = Dates.toms(timeTop) / Dates.toms(Second(1))
 		timeSub_fl = Dates.toms(timeSub) / Dates.toms(Second(1))
 		if nOpt_int == 0
-			produceMessage(report_m.options,report_m.report, 1," - Lower: $(round(estCost_fl, sigdigits = 8)), Upper: $(round(currentBest_fl, sigdigits = 8)), Optimality gap: $(round(gap_fl, sigdigits = 4))", testErr = false, printErr = false)
+			produceMessage(report_m.options,report_m.report, 1," - Lower: $(round(estCost_fl, sigdigits = 8)), Upper: $(round(stab_obj.objVal, sigdigits = 8)), Optimality gap: $(round(gap_fl, sigdigits = 4))", testErr = false, printErr = false)
 		else
 			produceMessage(report_m.options,report_m.report, 1," - Objective: $(nearOpt_ntup.obj[nOpt_int][1]), Objective value: $(round(nearOptObj_fl, sigdigits = 8)), Feasibility gap: $(round(gap_fl, sigdigits = 4))", testErr = false, printErr = false)
 		end
 		produceMessage(report_m.options,report_m.report, 1," - Time for top: $timeTop_fl Time for sub: $timeSub_fl", testErr = false, printErr = false)
 
 		# write to reporting files
-		etr_arr = Pair{Symbol,Any}[:i => i, :lowCost => estCost_fl, :bestObj => nOpt_int == 0 ? currentBest_fl : nearOptObj_fl, :gap => gap_fl, :curCost => topCost_fl + subCost_fl,
+		etr_arr = Pair{Symbol,Any}[:i => i, :lowCost => estCost_fl, :bestObj => nOpt_int == 0 ? stab_obj.objVal : nearOptObj_fl, :gap => gap_fl, :curCost => topCost_fl + subCost_fl,
 						:time_ges => Dates.value(floor(now() - report_m.options.startTime,Dates.Second(1)))/60, :time_top => timeTop_fl/60, :time_sub => timeSub_fl/60]
 		
 		if !isempty(meth_tup) # add info about stabilization
 			push!(etr_arr, :actMethod => stab_obj.method[stab_obj.actMet])
-			append!(etr_arr, map(x -> Symbol("dynPar_",stab_obj.method[x]) => stab_obj.dynPar[x], 1:length(stab_obj.method)))
+			for x in eachindex(stab_obj.method)
+				if isa(stab_obj.dynPar[x],Dict)
+					for y in keys(stab_obj.dynPar[x])
+						push!(etr_arr, Symbol("dynPar_",stab_obj.method[x],"_",y,) => stab_obj.dynPar[x][y])
+					end
+				else
+					push!(etr_arr,Symbol("dynPar_",stab_obj.method[x]) => stab_obj.dynPar[x])
+				end
+			end
 		end
 
 		# add info about near-optimal
@@ -335,7 +354,7 @@ let i = 1, gap = gap, gap_fl = 1.0, currentBest_fl = !isempty(meth_tup) ? startS
 				produceMessage(report_m.options,report_m.report, 1," - Switched to near-optimal for $(nearOpt_ntup.obj[nOpt_int][1])", testErr = false, printErr = false)
 			else
 				produceMessage(report_m.options,report_m.report, 1," - Finished iteration!", testErr = false, printErr = false)
-				#break
+				break
 			end
 		end
 
@@ -358,6 +377,9 @@ let i = 1, gap = gap, gap_fl = 1.0, currentBest_fl = !isempty(meth_tup) ? startS
 		#endregion
 
 		i = i + 1
+		if i>1000
+			break
+		end
 	end
 end
 
@@ -395,3 +417,4 @@ minStep_fl = 0.0
 nOpt_int = 0
 costOpt_fl = Inf
 nearOptObj_fl = Inf
+adjCtr_count = 0
